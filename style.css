@@ -1,0 +1,71 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    height: 100svh;
+    background: linear-gradient(90deg, #395492, #0099c0, #3dd5a8);
+    font-family: Arial, Helvetica, sans-serif;
+    user-select: none;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(10, auto);
+    grid-template-rows: repeat(20, auto);
+    padding: .6vh;
+    gap: .3vh;
+    border-radius: .6vh;
+    background-color: rgba(1, 8, 89, .5);
+}
+
+.grid>div {
+    --cellSiz: min(4.5vh, 7.5vw);
+    height: var(--cellSiz);
+    width: var(--cellSiz);
+    border-radius: .3vh;
+    background: rgba(126, 150, 221, .2);
+}
+.grid>div.ghost{
+    background-color:rgba(0, 0, 0, 0.397) ;
+}
+.grid>div.I {
+    background-color: cyan;
+}
+.grid>div.O {
+    background-color: yellow;
+}
+.grid>div.T {
+    background-color: purple;
+}
+.grid>div.S {
+    background-color: green;
+}
+.grid>div.Z {
+    background-color: red;
+}
+.grid>div.J {
+    background-color: blue;
+}
+.grid>div.L{
+    background-color: orange;
+}
+
+.grid>div.I,
+.grid>div.O,
+.grid>div.T,
+.grid>div.S,
+.grid>div.Z,
+.grid>div.J,
+.grid>div.L,
+.grid>div.ghost{
+    box-shadow: inset 2px 2px 2px rgba(255, 255, 255, 0.201),
+    inset -2px -2px  2px rgba(1, 8,90,.2)
+}
