@@ -27,7 +27,7 @@ body {
 }
 
 .grid>div {
-    --cellSiz: min(4.5vh, 7.5vw);
+    --cellSiz: min(4vh, 7vw);
     height: var(--cellSiz);
     width: var(--cellSiz);
     border-radius: .3vh;
