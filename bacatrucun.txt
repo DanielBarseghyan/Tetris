@@ -1,0 +1,77 @@
+
+tetris
+
+1. Sarkumenk grid(axusak) 10X20 vra 
+2. Sarkel tetrisi figurkek@ 
+3.figurkeki sharjelu logikan
+4.Logika vor kstugi toxer@ u kjnji ete lriva lcvac
+5.xax@ krvelu logikan
+6.heraxosi ekranic xaxalu hnaravorucun(hummer.js)
+
+!!!! tetris.js
+!!! generatePlayField,tetrominos,tetrominoNames,getRandomElement,generateTetromino
+
+gridi mej sharjvelu hamar karelia ogtagorcel matrica(2chap) dra hamar
+grumenk tetris.js failui *generatePlayField vortex araj sarkac(u export arac) Tetris classi construktorum sarkac playfildum
+stexcumenk 10x20 matricav (10x20 vorovhetev 2 constant import enk anum utilites.js vorpes playfieldColumns,playfieldRows)
+(function@ stexcuma matrix vor@ hamapatasxana tetrisi dashtin vortex toxer@ masivner en isk vandakner@ 0 ner 
+ dranc arjek@ hetagaium poxelov 1i knshenk vor et vandak@ kam mi xumb vandakner inchvor figura en tetrisi dashtum)
+
+
+/// tetrominoNames@ masiva vori mej nshacen figurkeki anuner@ i,l,o... (anuner@ figurkeki teskin nmanacvac en)
+
+/// getRandomElement functiona vorov stanumenk tiv 0ic mijev tetrominoNamesi verji index@ vor amen iteraciain random 
+figurka stanank
+
+/// tetrominos@ obekta vori mej key da tetrominoNames mekna isk valun tvial figurken matricai tesqov vortex 0 ner@ da 
+tatark taracqna isk 1 er@ figurkin patkanox taracqna orinak
+"L": [
+        [0, 0, 1],
+        [1, 1, 1],
+        [0, 0, 0]
+    ],...
+
+/// generateTetromino
+
+!!!! script.js
+!!! Tetris,cells,drow,drowTetromino 
+import arvac Construktrov stexcumenq new Tetri vor@ pahum enk tetris popoxakani mej
+
+
+
+cells constanti mej pahumenk bolor div elementner@ dashti meji
+
+drow functionov skzbic bolor div elementnerI class er@ zroacnum enq
+qani vor amen drow funcian kancheluc dasht@ noric petka nkarvi(dashti meji zbaxvac kam datark celler@)
+
+drowTetromino funcian vor@ nkaruma dashti mej stacac figurken
+skzbic name popoxakani mej pahvuma tetrisic stacac tetrominoi anun@(tetris.tetromino.name)
+heto petka Tetrisic ekac matricai(figurki matricai) chap@  pahel tetrominoMatrixLength i mej
+
+// 
+
+function drowTetromino() {
+    const name = tetris.tetromino.name;
+    const tetrominoMatrixSize = tetris.tetromino.matrix.length;
+    for (let row = 0; row < tetrominoMatrixSize; row++) {
+        for (let column = 0; column < tetrominoMatrixSize; column++) {
+            if (!tetris.tetromino.matrix[row][column]) continue;
+            if (tetris.tetromino.row + row < 0) continue;
+            const cellIndex = convertPositionToIndex(tetris.tetromino.row + row, tetris.tetromino.column + column)
+            cells[cellIndex].classList.add(name);
+        }
+    }
+}
+//
+figurken dashtum nkarelu hamar 2 hat for ciklov ancnumenk 0 ic michev tetrominoMatrixLength
+araji ciklov ancnumenk toxov(row) erkrordov cell@ (column)
+ev stugumenq ete ete tetris.tetromino.matrix[row][column] (es kanchi jamanak peka beri kam 0 ete datark kam 1 ete figurki mas)
+ete 0 a iteracian baca toxvum continue ov
+erkrord if ov stugum enk ete en tox@ voric petka sksi figurken u gumarac row stanumenk 0 ic pokr(figurken dashtic dursa asinkn)
+bac enk toxnum continue ov
+ete stugumner@ ancav matrix@ asinkn nkarum enk figurken 
+dra hamar petka matricai kletki index@ veracenk hamanishi cellsi meji div elementneri indexi convertPositionToIndex function ov
+vor stanuma 2 argument tetris.tetromino.row + row, tetris.tetromino.column + column
+
+!!!!utilites
+!!! convertPositionToIndex

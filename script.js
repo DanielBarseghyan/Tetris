@@ -1,18 +1,42 @@
 import { Tetris } from "./tetris.js";
-import { convertPositionToIndex, playfieldColumns, playfieldRows } from './utilites.js'
+import { convertPositionToIndex, SAD, playfieldColumns, playfieldRows } from './utilites.js'
 const tetris = new Tetris();
 const cells = document.querySelectorAll('.grid>div');
+const startModal = document.querySelector('.starterModal');
+const startBtn = document.querySelector('.startBtn');
 
 let hammer;
 let timeoutId;
 let requestId;
+let gameStarted = false;
+function startAnimation() {
+    if (gameStarted) return
+    const animatedIcons = document.querySelectorAll('.starterModal >img');
+    let randomIndex = Math.floor(Math.random() * animatedIcons.length);
+    animatedIcons[randomIndex].style.animation = 'animate 5s ease-in-out infinite';
+    setTimeout(() => {
+        startAnimation()
+    }, 400)
 
-initKeyDown();
-initTouch();
+}
+startAnimation();
 
 
+startBtn.addEventListener('click', startTheGame);
 
-moveDown();
+function startTheGame() {
+    startModal.style.width = '0%';
+    setTimeout(() => {
+        startModal.style.display = 'none';
+        initKeyDown();
+        initTouch();
+
+        moveDown();
+    }, 1000);
+
+}
+
+
 
 function initKeyDown() {
     document.addEventListener('keydown', onKeyDown)
@@ -123,17 +147,12 @@ function drowGhostTetromino() {
     }
 }
 
-function gameOver() {
-    stopLoop();
-    document.removeEventListener('keydown', onKeyDown);
-    hammer.off('panstart panleft panright pandown swipedown tap')
-    gameOverAnimation();
-}
+
 function initTouch() {
     document.addEventListener('dblclick', (e) => e.preventDefault())
     hammer = new Hammer(document.querySelector('body'));
-    hammer.get('pan').set({ direction: Hammer.DIRECTION_ALL});
-    hammer.get('swipe').set({ direction: Hammer.DIRECTION_ALL});
+    hammer.get('pan').set({ direction: Hammer.DIRECTION_ALL });
+    hammer.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
 
     const threshHold = 30;
     let deltaX = 0;
@@ -170,6 +189,28 @@ function initTouch() {
         rotate();
     })
 }
-function gameOverAnimation(){
-    // todo
+
+function gameOver() {
+    stopLoop();
+    document.removeEventListener('keydown', onKeyDown);
+    hammer.off('panstart panleft panright pandown swipedown tap')
+    gameOverAnimation();
+}
+function gameOverAnimation() {
+    const filedCells = [...cells].filter(cell => cell.classList.length > 0);
+    filedCells.forEach((cell, index) => {
+        setTimeout(() => cell.classList.add('hide'), i * 10);
+        setTimeout(() => cell.removeAttribute('class'), i * 10 + 500);
+    })
+    setTimeout(drowSad, filedCells.length * 10 + 1000);
+}
+function drowSad() {
+    const topOffSet = 5;
+    for (let row = 0; row < SAD.length; row) {
+        for (let column = 0; column < SAD[0].length; column++) {
+            if (!SAD[row][column]) continue;
+            const cellIndex = convertPositionToIndex(topOffSet + row, column);
+            cells[cellIndex].classList.add('sad');
+        }
+    }
 }

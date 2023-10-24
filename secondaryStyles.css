@@ -1,0 +1,59 @@
+.starterModal {
+    transition: 1s;
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(90deg, #283f75, #034657, #965a5a);
+
+}
+
+.starterModal img {
+    position: absolute;
+    top: -190px;
+    width: 10vmin;
+}
+
+.coll {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 90vmin;
+    z-index: 2;
+    backdrop-filter: blur(4px);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.coll>h1 {
+    background: linear-gradient(60deg, red, black);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 15vmin;
+    margin-bottom: 20px;
+}
+
+.startBtn {
+    width: fit-content;
+    color: white;
+    cursor: pointer;
+}
+.startBtn:hover{
+    transition: .5s;
+    transform: translate(10%);
+}
+@keyframes animate {
+    0% {
+        top: -190px;
+    }
+
+    100% {
+        top: 120%;
+    }
+
+}
