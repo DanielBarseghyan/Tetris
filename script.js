@@ -25,6 +25,7 @@ startAnimation();
 startBtn.addEventListener('click', startTheGame);
 
 function startTheGame() {
+    gameStarted = true;
     startModal.style.width = '0%';
     setTimeout(() => {
         startModal.style.display = 'none';
