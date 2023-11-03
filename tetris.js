@@ -127,6 +127,7 @@ export class Tetris {
       filledRows.forEach(row => {
          this.dropRowsAbove(row);
       });
+
    }
 
    dropRowsAbove(rowToDelete) {
@@ -134,6 +135,8 @@ export class Tetris {
          this.playfield[row] = this.playfield[row - 1]
       }
       this.playfield[0] = new Array(playfieldColumns).fill(0)
+      let scor = document.querySelector('.scor > span');
+      scor.innerHTML = +scor.innerHTML + 100;
    }
 
    isCollides(row, column) {

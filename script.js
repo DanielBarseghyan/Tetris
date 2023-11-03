@@ -1,14 +1,17 @@
 import { Tetris } from "./tetris.js";
-import { convertPositionToIndex, SAD, playfieldColumns, playfieldRows } from './utilites.js'
+import { convertPositionToIndex, playfieldColumns, playfieldRows, tetrominoNames } from './utilites.js'
 const tetris = new Tetris();
 const cells = document.querySelectorAll('.grid>div');
 const startModal = document.querySelector('.starterModal');
 const startBtn = document.querySelector('.startBtn');
+const colorlessModBtn = document.querySelector('.startBtn2');
+const gameOverModal = document.querySelector('.gameOverModal');
 
 let hammer;
 let timeoutId;
 let requestId;
 let gameStarted = false;
+let colorlessModIsOn = false;
 function startAnimation() {
     if (gameStarted) return
     const animatedIcons = document.querySelectorAll('.starterModal >img');
@@ -23,10 +26,22 @@ startAnimation();
 
 
 startBtn.addEventListener('click', startTheGame);
+colorlessModBtn.addEventListener('click', () => {
+    colorlessModIsOn=true;
+    colorlessMod();
+    startTheGame();
+})
+
 
 function startTheGame() {
     gameStarted = true;
-    startModal.style.width = '0%';
+    if (colorlessModIsOn) {
+        startModal.style.marginLeft = '-200%';
+    }
+    else {
+        startModal.style.marginLeft = '200%';
+    }
+    startModal.style.opacity = "0"
     setTimeout(() => {
         startModal.style.display = 'none';
         initKeyDown();
@@ -199,19 +214,26 @@ function gameOver() {
 }
 function gameOverAnimation() {
     const filedCells = [...cells].filter(cell => cell.classList.length > 0);
-    filedCells.forEach((cell, index) => {
+    filedCells.forEach((cell, i) => {
         setTimeout(() => cell.classList.add('hide'), i * 10);
         setTimeout(() => cell.removeAttribute('class'), i * 10 + 500);
     })
-    setTimeout(drowSad, filedCells.length * 10 + 1000);
+    setTimeout(() => showGameOverModal(), 1800)
+
 }
-function drowSad() {
-    const topOffSet = 5;
-    for (let row = 0; row < SAD.length; row) {
-        for (let column = 0; column < SAD[0].length; column++) {
-            if (!SAD[row][column]) continue;
-            const cellIndex = convertPositionToIndex(topOffSet + row, column);
-            cells[cellIndex].classList.add('sad');
-        }
-    }
+function showGameOverModal() {
+    let lastScor = document.querySelector('#lastScor');
+    lastScor.innerHTML = document.querySelector('.scor > span').innerHTML;
+    gameOverModal.style.top = 'auto';
+    document.querySelector('.retry').addEventListener('click', () => window.location.reload());
 }
+function colorlessMod() {
+    let cssLink = document.createElement('link');
+    cssLink.rel = "stylesheet";
+    cssLink.href = "./clasicStyles.css";
+    document.head.appendChild(cssLink);
+    const body = document.querySelector('body');
+    body.classList.remove('bodyColor')
+    body.style.backgroundColor = 'black';
+}
+

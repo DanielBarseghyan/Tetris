@@ -6,16 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="./secondaryStyles.css">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
     <title>Tetris</title>
 </head>
 
-<body>
+<body class="bodyColor">
+    <div class="gameOverModal">
+        <h2>Game Over</h2>
+        <div>Scor: <span id="lastScor">0</span></div>
+        <div class='retry'>Try again!</div>
+    </div>
+    <div class="scorColl">
+        <div class="scor">Scor: <span>0</span></div>
+    </div>
     <div class="starterModal">
         <div class="coll">
             <h1>TETRIS</h1>
-            <div class="startBtn">Start the game >></div>
+
+            <div class="startBtn">Start the game</div>
+            <div class='startBtn2'>
+                Colorles mod</div>
         </div>
+
         <img src="./images/Oicon 1.png" alt="img" style="
         left:30% ;">
         <img src="./images/iIcon.png" alt="img" style="
@@ -37,17 +50,7 @@
         left: 65%;
         width: 12vmin">
     </div>
-    <div class="LBgImage">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-    </div>
+
     <div class="grid">
         <div></div>
         <div></div>
@@ -250,6 +253,7 @@
         <div></div>
         <div></div>
     </div>
+
     <script type="module" src="./script.js"></script>
 </body>
 
